@@ -1,0 +1,53 @@
+﻿@page "/todo"
+
+
+<h3>Lista de tarefas pendentes(@todos.Count(todo => !todo.IsDone))</h3>
+
+
+<ul>
+    @foreach (var todo in todos)
+    {
+    <li>
+        <input type="checkbox" id="id" />
+        <input @bind="todo.Title" />
+        @if (checkbox)
+        {
+            <input disabled="disabled" />
+        }
+        else
+        {
+            <input @bind="todo.Title" />
+        }
+
+
+    </li>
+
+    }
+</ul>
+ 
+
+
+
+<input placeholder="Ex: Estudar blazor" @bind="newTodo" />
+<button @onclick="AddTodo">Adicionar tarefa</button>
+
+@code {
+    private List<ListaTodo> todos = new();
+    private string newTodo;
+    private bool checkbox { get; set; }
+
+
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+            todos.Add(new ListaTodo { Title = newTodo });
+            newTodo = string.Empty;
+
+        }
+
+    }
+
+
+
+}
